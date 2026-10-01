@@ -1,16 +1,16 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import { projects } from '../data/projects';
+import Layout from '../../layouts/Layout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { projects } from '../../data/projects';
 
 const featuredProjects = projects.filter((p) => p.featured);
 const otherProjects = projects.filter((p) => !p.featured);
 ---
 
 <Layout
-  lang="en"
-  title="iray-tno | Projects & Open Source"
-  description="Personal portal and open-source project directory of iray-tno, including Envarly, Hozo, and developer utilities."
+  lang="ja"
+  title="iray-tno | プロジェクト & OSS"
+  description="iray-tno のオープンソースプロジェクトおよびツールのポータルページです。Envarly や Hozo などの開発物を掲載しています。"
 >
   <div class="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
     <!-- Hero Section -->
@@ -43,7 +43,8 @@ const otherProjects = projects.filter((p) => !p.featured);
           </p>
 
           <p class="text-sm text-zinc-500 dark:text-zinc-400 max-w-xl leading-relaxed">
-            Personal portal and directory for open-source tools, UI compilers, and developer utilities.
+            個人開発のツールやオープンソースソフトウェアのポータルページです。
+            Windows ユーティリティ、UI コンパイラ、ライブラリなどを開発しています。
           </p>
 
           <div class="flex items-center gap-3 pt-2">
@@ -78,13 +79,13 @@ const otherProjects = projects.filter((p) => !p.featured);
           Featured Projects
         </h2>
         <p class="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1">
-          Highlighted applications and open-source projects
+          主要なアプリケーションとプロジェクト
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {featuredProjects.map((project) => (
-          <ProjectCard project={project} lang="en" />
+          <ProjectCard project={project} lang="ja" />
         ))}
       </div>
     </section>
@@ -97,13 +98,13 @@ const otherProjects = projects.filter((p) => !p.featured);
             Other Projects & Tools
           </h2>
           <p class="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1">
-            Libraries, automation tools, and scripts
+            ライブラリ・スクリプト・ツール
           </p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {otherProjects.map((project) => (
-            <ProjectCard project={project} lang="en" />
+            <ProjectCard project={project} lang="ja" />
           ))}
         </div>
       </section>

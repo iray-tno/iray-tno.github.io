@@ -3,9 +3,10 @@ import type { Project } from '../data/projects';
 
 interface Props {
   project: Project;
+  lang?: 'en' | 'ja';
 }
 
-const { project } = Astro.props;
+const { project, lang = 'en' } = Astro.props;
 ---
 
 <div
@@ -24,13 +25,13 @@ const { project } = Astro.props;
       </h3>
       {project.badge && (
         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">
-          {project.badge}
+          {project.badge[lang]}
         </span>
       )}
     </div>
 
     <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">
-      {project.description}
+      {project.description[lang]}
     </p>
   </div>
 
@@ -51,7 +52,7 @@ const { project } = Astro.props;
           rel="noopener noreferrer"
           class="inline-flex items-center gap-1.5 font-medium text-indigo-600 dark:text-indigo-400 hover:underline"
         >
-          <span>Website</span>
+          <span>{lang === 'en' ? 'Website' : 'サイト'}</span>
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
             <polyline points="15 3 21 3 21 9"></polyline>
