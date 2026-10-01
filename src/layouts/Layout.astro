@@ -9,6 +9,7 @@ interface Props {
   googleVerification?: string;
   yandexVerification?: string;
   naverVerification?: string;
+  gaId?: string;
 }
 
 const {
@@ -20,6 +21,7 @@ const {
   googleVerification = 'Bi3E2hIYlL4dUq-rWPnj6Qklwt7RR4_kLA4KZCpN3xI',
   yandexVerification = 'c239e61ae4632099',
   naverVerification = '12f7f77bf64caec916041ab4db3982821f7feeef',
+  gaId = 'G-5B3TYTKHVL',
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://iray-tno.github.io');
@@ -87,6 +89,20 @@ const jsonLd = {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Google tag (gtag.js) -->
+    {gaId && (
+      <>
+        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+        <script is:inline define:vars={{ gaId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', gaId);
+        </script>
+      </>
+    )}
 
     <!-- Search Engine Verification -->
     {googleVerification && <meta name="google-site-verification" content={googleVerification} />}
