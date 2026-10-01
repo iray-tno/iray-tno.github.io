@@ -1,18 +1,21 @@
 ---
 import '../styles/global.css';
+import { projects } from '../data/projects';
 
 interface Props {
   title?: string;
   description?: string;
   lang?: 'en' | 'ja';
+  googleVerification?: string;
 }
 
 const {
   lang = 'en',
   title = lang === 'en' ? 'iray-tno | Projects & Open Source' : 'iray-tno | プロジェクト & OSS',
   description = lang === 'en'
-    ? 'Personal portal and open-source project directory of iray-tno, including Envarly, Hozo, and developer utilities.'
+    ? 'Personal portal and open-source project directory of iray-tno, featuring Envarly, Hozo, and developer utilities.'
     : 'iray-tno のオープンソースプロジェクトおよびツールのポータルページです。Envarly や Hozo などの開発物を掲載しています。',
+  googleVerification = 'Bi3E2hIYlL4dUq-rWPnj6Qklwt7RR4_kLA4KZCpN3xI',
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://iray-tno.github.io');
@@ -21,19 +24,54 @@ const siteName = 'iray-tno';
 const enURL = new URL('/', Astro.site ?? 'https://iray-tno.github.io').toString();
 const jaURL = new URL('/ja/', Astro.site ?? 'https://iray-tno.github.io').toString();
 
+// Structured Data for Google Site Name, Author, and Project Catalog
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  'name': siteName,
-  'alternateName': ['tanao', 'iray-tno Projects'],
-  'url': 'https://iray-tno.github.io/',
-  'inLanguage': lang === 'en' ? 'en-US' : 'ja-JP',
-  'author': {
-    '@type': 'Person',
-    'name': 'iray-tno',
-    'alternateName': 'tanao',
-    'url': 'https://github.com/iray-tno',
-  },
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': 'https://iray-tno.github.io/#website',
+      'url': 'https://iray-tno.github.io/',
+      'name': siteName,
+      'alternateName': ['tanao', 'iray-tno Projects'],
+      'description': description,
+      'inLanguage': lang === 'en' ? 'en-US' : 'ja-JP',
+      'publisher': {
+        '@id': 'https://iray-tno.github.io/#author',
+      },
+    },
+    {
+      '@type': 'Person',
+      '@id': 'https://iray-tno.github.io/#author',
+      'name': 'iray-tno',
+      'alternateName': 'tanao',
+      'url': 'https://github.com/iray-tno',
+      'sameAs': [
+        'https://github.com/iray-tno',
+        'https://twitter.com/iray_tno',
+        'http://chiranoura.nobody.jp/',
+      ],
+      'jobTitle': 'Software Developer',
+    },
+    {
+      '@type': 'ItemList',
+      '@id': 'https://iray-tno.github.io/#projects',
+      'name': 'Featured Projects & Open Source Tools',
+      'itemListElement': projects.map((p, index) => ({
+        '@type': 'ListItem',
+        'position': index + 1,
+        'item': {
+          '@type': 'SoftwareApplication',
+          'name': p.title,
+          'description': p.description[lang],
+          'url': p.siteUrl ?? p.githubUrl,
+          'codeRepository': p.githubUrl,
+          'applicationCategory': 'DeveloperApplication',
+          'operatingSystem': p.tags.includes('Windows') ? 'Windows' : 'Cross-platform',
+        },
+      })),
+    },
+  ],
 };
 ---
 
@@ -46,10 +84,16 @@ const jsonLd = {
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Hreflang Tags for SEO -->
+    <!-- Google Search Console Verification -->
+    {googleVerification && <meta name="google-site-verification" content={googleVerification} />}
+
+    <!-- Hreflang Tags for Multi-language SEO -->
     <link rel="alternate" hreflang="en" href={enURL} />
     <link rel="alternate" hreflang="ja" href={jaURL} />
     <link rel="alternate" hreflang="x-default" href={enURL} />
+
+    <!-- AIO / LLM Specification Link -->
+    <link rel="help" type="text/markdown" href="/llms.txt" title="LLM Context" />
 
     <!-- Primary Meta Tags -->
     <title>{title}</title>
@@ -57,12 +101,18 @@ const jsonLd = {
     <meta name="description" content={description} />
     <meta name="author" content="iray-tno" />
 
+    <!-- Robots & AI Crawlers Directive (Rich snippet & AI overview friendly) -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:site_name" content={siteName} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'ja_JP'} />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary" />
@@ -70,7 +120,7 @@ const jsonLd = {
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
 
-    <!-- Schema.org Structured Data for Google Site Name -->
+    <!-- JSON-LD Structured Data (Google Site Name + Author + ItemList Catalog) -->
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body class="bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white transition-colors duration-200">
@@ -152,6 +202,7 @@ const jsonLd = {
           <a href="https://github.com/iray-tno" class="hover:underline">GitHub</a>
           <a href="https://twitter.com/iray_tno" class="hover:underline">X (@iray_tno)</a>
           <a href="http://chiranoura.nobody.jp/" class="hover:underline">Blog</a>
+          <a href="/llms.txt" class="hover:underline text-zinc-400 dark:text-zinc-600">llms.txt</a>
         </div>
       </div>
     </footer>

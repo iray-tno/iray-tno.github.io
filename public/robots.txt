@@ -1,4 +1,26 @@
+# robots.txt for https://iray-tno.github.io/
+# Allows all friendly crawlers and AI bots across the root and subprojects (envarly, hozo, etc.)
+
 User-agent: *
 Allow: /
 
+# AI Crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Sitemaps
 Sitemap: https://iray-tno.github.io/sitemap-index.xml
+Sitemap: https://iray-tno.github.io/envarly/sitemap-index.xml
+Sitemap: https://iray-tno.github.io/hozo/sitemap.xml

@@ -1,0 +1,37 @@
+# iray-tno
+
+> Personal portal and open-source software directory for iray-tno (tanao). Features developer tools, Windows system utilities, universal UI compilers, and open-source libraries.
+
+- Profile: https://github.com/iray-tno
+- Twitter / X: https://twitter.com/iray_tno
+- Blog: http://chiranoura.nobody.jp/
+- Website: https://iray-tno.github.io/
+- Japanese Portal: https://iray-tno.github.io/ja/
+
+## Featured Projects
+
+- [Envarly](https://iray-tno.github.io/envarly/): A modern, intuitive Windows environment variable manager built with Tauri v2, React, TypeScript, and Rust. Inspect, edit, and safely preview changes before applying them to the registry. Features PATH auditing, encrypted snapshots, and secret detection.
+  - Website: https://iray-tno.github.io/envarly/
+  - GitHub: https://github.com/iray-tno/envarly
+  - Language: TypeScript, Rust
+  - Platform: Windows 10, Windows 11
+
+- [Hozo](https://iray-tno.github.io/hozo/): A Rust-powered universal UI compiler and accessibility-first layer for React Native. Compiles JSX into semantic, high-performance HTML/CSS web output or React Native primitives. Static paths compile away with zero runtime styling.
+  - Website: https://iray-tno.github.io/hozo/
+  - GitHub: https://github.com/iray-tno/hozo
+  - Language: Rust, TypeScript
+  - Platform: Web, iOS, Android
+
+## Other Projects & Utilities
+
+- [ankiniki](https://github.com/iray-tno/ankiniki): Flashcard and spaced repetition learning application tailored for developers.
+  - GitHub: https://github.com/iray-tno/ankiniki
+  - Language: TypeScript
+
+- [prepkit](https://github.com/iray-tno/prepkit): Developer utility toolkit and workspace automation scripts to accelerate day-to-day workflow.
+  - GitHub: https://github.com/iray-tno/prepkit
+  - Language: Python
+
+- [chirashi-js](https://github.com/iray-tno/chirashi-js): Lightweight JavaScript and TypeScript utility library focused on clean and composable helpers.
+  - GitHub: https://github.com/iray-tno/chirashi-js
+  - Language: TypeScript
