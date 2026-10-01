@@ -1,0 +1,76 @@
+---
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+---
+
+<div
+  class:list={[
+    'relative group rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between border',
+    'bg-white/90 dark:bg-zinc-900/80 backdrop-blur-sm',
+    project.featured
+      ? 'border-zinc-300/80 dark:border-zinc-700/80 shadow-md hover:shadow-xl hover:border-indigo-500/50 dark:hover:border-indigo-400/50'
+      : 'border-zinc-200/70 dark:border-zinc-800/70 hover:shadow-lg hover:border-zinc-400 dark:hover:border-zinc-600',
+  ]}
+>
+  <div>
+    <div class="flex items-start justify-between gap-3 mb-3">
+      <h3 class="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+        {project.title}
+      </h3>
+      {project.badge && (
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">
+          {project.badge}
+        </span>
+      )}
+    </div>
+
+    <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">
+      {project.description}
+    </p>
+  </div>
+
+  <div>
+    <div class="flex flex-wrap gap-1.5 mb-5">
+      {project.tags.map((tag) => (
+        <span class="text-xs px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800/80 text-zinc-600 dark:text-zinc-400 font-mono">
+          {tag}
+        </span>
+      ))}
+    </div>
+
+    <div class="flex items-center gap-3 pt-3 border-t border-zinc-100 dark:border-zinc-800/60 text-sm">
+      {project.siteUrl && (
+        <a
+          href={project.siteUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1.5 font-medium text-indigo-600 dark:text-indigo-400 hover:underline"
+        >
+          <span>Website</span>
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+        </a>
+      )}
+
+      <a
+        href={project.githubUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-1.5 font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
+      >
+        <span>GitHub</span>
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 18l6-6-6-6"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
