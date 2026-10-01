@@ -7,6 +7,7 @@ interface Props {
   description?: string;
   lang?: 'en' | 'ja';
   googleVerification?: string;
+  yandexVerification?: string;
 }
 
 const {
@@ -16,6 +17,7 @@ const {
     ? 'Personal portal and open-source project directory of iray-tno, featuring Envarly, Hozo, and developer utilities.'
     : 'iray-tno のオープンソースプロジェクトおよびツールのポータルページです。Envarly や Hozo などの開発物を掲載しています。',
   googleVerification = 'Bi3E2hIYlL4dUq-rWPnj6Qklwt7RR4_kLA4KZCpN3xI',
+  yandexVerification = 'c239e61ae4632099',
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://iray-tno.github.io');
@@ -84,8 +86,9 @@ const jsonLd = {
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Google Search Console Verification -->
+    <!-- Search Engine Verification -->
     {googleVerification && <meta name="google-site-verification" content={googleVerification} />}
+    {yandexVerification && <meta name="yandex-verification" content={yandexVerification} />}
 
     <!-- Hreflang Tags for Multi-language SEO -->
     <link rel="alternate" hreflang="en" href={enURL} />
